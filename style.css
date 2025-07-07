@@ -1,24 +1,29 @@
+/* Use a modern, easy-to-read font */
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+  font-family: 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .container {
-  background: white;
-  padding: 20px;
+  background-color: #fff;
+  padding: 24px;
   width: 90%;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
+  font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
 form {
@@ -26,28 +31,49 @@ form {
   flex-direction: column;
 }
 
+/* Label styling */
 label {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  color: #333;
 }
 
+/* Input styling */
 input {
-  padding: 10px;
+  padding: 12px;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  transition: border-color 0.3s ease;
 }
 
+input:focus {
+  outline: none;
+  border-color: #0078d7;
+  background-color: #fefefe;
+}
+
+/* Button styling */
 button {
-  margin-top: 20px;
-  padding: 10px;
+  padding: 14px;
   background-color: #0078d7;
   color: white;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
   background-color: #005ea0;
+}
+
+@media (min-width: 600px) {
+  .container {
+    padding: 32px;
+  }
 }
