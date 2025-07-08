@@ -72,6 +72,11 @@ button:hover {
   background-color: #005ea0;
 }
 
+button:active {
+ background-color: #00243e;
+
+}
+
 @media (min-width: 600px) {
   .container {
     padding: 32px;

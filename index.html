@@ -1,35 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visitor Check-In</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Visitor Check-In</h1>
-    <form id="checkinForm" action="https://formspree.io/f/YOUR_ID" method="POST">
-      <label for="name">Full Name *</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="business">Business *</label>
-      <input type="text" id="business" name="business" required />
-
-      <label for="email">Business Email</label>
-      <input type="email" id="email" name="email" />
-
-      <label for="phone">Phone</label>
-      <input type="tel" id="phone" name="phone" />
-
-      <button type="submit">Check In</button>
-    </form>
-  </div>
-</body>
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,37 +9,77 @@
 <body>
   <div class="container">
     <h1>Visitor Check-In</h1>
-    <form id="checkinForm" action="https://formspree.io/f/YOUR_ID" method="POST">
-      <label for="name">Full Name *</label>
-      <input type="text" id="name" name="Full Name" required />
+    <form id="checkinForm">
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" name="firstName" required />
 
-      <label for="business">Business *</label>
-      <input type="text" id="business" name="Business" required />
+      <label for="lastName">Last Name *</label>
+      <input type="text" id="lastName" name="lastName" required />
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="Email" />
+      <label for="company">Company *</label>
+      <input type="text" id="company" name="company" required />
 
-      <label for="phone">Phone</label>
-      <input type="tel" id="phone" name="Phone" />
+      <label for="mobileNumber">Mobile Number</label>
+      <input type="tel" id="mobileNumber" name="mobileNumber" />
 
       <label for="visiting">Whom Visiting *</label>
-      <input type="text" id="visiting" name="Whom Visiting" required />
+      <input type="text" id="visiting" name="visiting" required />
 
-      <!-- Hidden timestamp field -->
-      <input type="hidden" id="timestamp" name="Timestamp" />
+      <label for="timeOfAppointment">Time of Appointment *</label>
+      <input type="time" id="timeOfAppointment" name="timeOfAppointment" required />
+
+      <label for="depot">Depot *</label>
+      <input type="text" id="depot" name="depot" required />
 
       <button type="submit">Check In</button>
     </form>
   </div>
 
   <script>
-    // Auto-fill the timestamp just before the form submits
-    const form = document.getElementById('checkinForm');
-    form.addEventListener('submit', () => {
-      const now = new Date();
-      const formatted = now.toLocaleString(); // e.g., "7/7/2025, 3:14:15 PM"
-      document.getElementById('timestamp').value = formatted;
-    });
-  </script>
-</body>
-</html>
+  const form = document.getElementById('checkinForm');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const now = new Date();
+    const dateOfArrival = now.toISOString().split('T')[0];         // YYYY-MM-DD
+    const timeOfArrival = now.toISOString();                        // ISO format
+    const createdAt = now.toISOString();                            // Same as arrival for now
+
+    const data = {
+      dateOfArrival: dateOfArrival,
+      timeOfArrival: timeOfArrival,
+      timeOfAppointment: document.getElementById('timeOfAppointment').value,
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      visiting: document.getElementById('visiting').value.trim(),
+      mobileNumber: document.getElementById('mobileNumber').value.trim(),
+      depot: document.getElementById('depot').value.trim(),
+      createdAt: createdAt
+    };
+
+    try {
+      const response = await fetch('https://w6xxpc1aei.execute-api.ap-southeast-2.amazonaws.com/safetyVisitorRegistration', {
+        method: 'POST',
+        headers: {
+          // 'Content-Type': 'application/json',
+          // 'x-api-key': 'YOUR_API_TOKEN_HERE'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      alert('Check-in successful!');
+      form.reset();
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Submission failed. Please try again.');
+    }
+  });
+</script>
+
