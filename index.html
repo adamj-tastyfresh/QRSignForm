@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -26,5 +26,52 @@
     </form>
   </div>
 </body>
-</html>
+</html> -->
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitor Check-In</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Visitor Check-In</h1>
+    <form id="checkinForm" action="https://formspree.io/f/YOUR_ID" method="POST">
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="Full Name" required />
+
+      <label for="business">Business *</label>
+      <input type="text" id="business" name="Business" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="Email" />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="Phone" />
+
+      <label for="visiting">Whom Visiting *</label>
+      <input type="text" id="visiting" name="Whom Visiting" required />
+
+      <!-- Hidden timestamp field -->
+      <input type="hidden" id="timestamp" name="Timestamp" />
+
+      <button type="submit">Check In</button>
+    </form>
+  </div>
+
+  <script>
+    // Auto-fill the timestamp just before the form submits
+    const form = document.getElementById('checkinForm');
+    form.addEventListener('submit', () => {
+      const now = new Date();
+      const formatted = now.toLocaleString(); // e.g., "7/7/2025, 3:14:15 PM"
+      document.getElementById('timestamp').value = formatted;
+    });
+  </script>
+</body>
+</html>
