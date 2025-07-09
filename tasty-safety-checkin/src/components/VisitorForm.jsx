@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+console.log("Loaded App.jsx");
+
+
 const VisitorForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
